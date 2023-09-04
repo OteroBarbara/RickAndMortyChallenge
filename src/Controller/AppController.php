@@ -9,14 +9,17 @@ use App\Api\RickAndMortyApiService;
 use App\Service\CharCounterService;
 use Symfony\Component\Stopwatch\Stopwatch;
 use App\Utils\TimeFormatter;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AppController extends AbstractController
 {
     private $rickAndMortyApiService;
+    private $httpClient;
 
-    public function __construct(RickAndMortyApiService $rickAndMortyApiService)
+    public function __construct(RickAndMortyApiService $rickAndMortyApiService,HttpClientInterface $httpClient)
     {
         $this->rickAndMortyApiService = $rickAndMortyApiService;
+        $this->httpClient = $httpClient;
     }
 
     #[Route('/', name: 'home')]
@@ -25,9 +28,9 @@ class AppController extends AbstractController
         $stopwatch = new Stopwatch();
         $stopwatch->start('char_count');
 
-        $locationData = $this->rickAndMortyApiService->getLocations()['results'];
-        $episodeData = $this->rickAndMortyApiService->getEpisodes()['results'];
-        $charactersData = $this->rickAndMortyApiService->getCharacters()['results'];
+        $locationData = $this->rickAndMortyApiService->getLocations();
+        $episodeData = $this->rickAndMortyApiService->getEpisodes();
+        $charactersData = $this->rickAndMortyApiService->getCharacters();
 
         $results = [
             [
