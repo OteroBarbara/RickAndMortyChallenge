@@ -33,7 +33,6 @@ class RickAndMortyApiService
     {
         $locationsResponse = $this->httpClient->request('GET', 'https://rickandmortyapi.com/api/location');
         $locationsData = $locationsResponse->toArray();
-
         return $locationsData;
     }
 }

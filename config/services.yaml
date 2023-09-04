@@ -27,3 +27,7 @@ services:
         class: App\Api\RickAndMortyApiService
         arguments:
             - '@http_client'
+    
+    App\Service\CharCounterService:
+
+    App\Service\EpisodeLocationService:
