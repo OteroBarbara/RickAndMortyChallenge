@@ -9,17 +9,14 @@ use App\Api\RickAndMortyApiService;
 use App\Service\CharCounterService;
 use Symfony\Component\Stopwatch\Stopwatch;
 use App\Utils\TimeFormatter;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AppController extends AbstractController
 {
     private $rickAndMortyApiService;
-    private $httpClient;
 
-    public function __construct(RickAndMortyApiService $rickAndMortyApiService,HttpClientInterface $httpClient)
+    public function __construct(RickAndMortyApiService $rickAndMortyApiService)
     {
         $this->rickAndMortyApiService = $rickAndMortyApiService;
-        $this->httpClient = $httpClient;
     }
 
     #[Route('/', name: 'home')]

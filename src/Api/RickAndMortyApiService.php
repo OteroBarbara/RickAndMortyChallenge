@@ -3,7 +3,6 @@
 namespace App\Api;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class RickAndMortyApiService
 {
@@ -14,7 +13,7 @@ class RickAndMortyApiService
         $this->httpClient = $httpClient;
     }
 
-    public function getCharacters()
+    /* public function getCharacters()
     {
         $characters = [];
         $url = 'https://rickandmortyapi.com/api/character';
@@ -27,9 +26,30 @@ class RickAndMortyApiService
         } while (!is_null($url));
 
         return $characters;
+    } */
+
+    public function getCharacters()
+    {
+        return $this->getCharactersRec('https://rickandmortyapi.com/api/character');
     }
 
-    public function getEpisodes()
+    private function getCharactersRec($url, $characters = [])
+    {
+        $charactersResponse = $this->httpClient->request('GET', $url);
+        $charactersData = $charactersResponse->toArray();
+        $nextPageUrl = $charactersData['info']['next'];
+
+        if (!is_null($nextPageUrl)) {
+            // Llamada recursiva para obtener la siguiente página
+            $characters = $this->getCharactersRec($nextPageUrl, $characters);
+        }
+
+        $characters = array_merge($characters, $charactersData['results']);
+
+        return $characters;
+    }
+
+    /* public function getEpisodes()
     {
         $episodes = [];
         $url = 'https://rickandmortyapi.com/api/episode';
@@ -42,9 +62,32 @@ class RickAndMortyApiService
         } while (!is_null($url));
 
         return $episodes;
+    } */
+
+    public function getEpisodes()
+    {
+        return $this->getEpisodesRec('https://rickandmortyapi.com/api/episode');
     }
 
-    public function getLocations()
+    private function getEpisodesRec($url, $episodes = [])
+    {
+        $episodesResponse = $this->httpClient->request('GET', $url);
+        
+        $episodesData = $episodesResponse->toArray();
+
+        $nextPageUrl = $episodesData['info']['next'];
+
+        if (!is_null($nextPageUrl)) {
+            // Llamada recursiva para obtener la siguiente página
+            $episodes = $this->getEpisodesRec($nextPageUrl, $episodes);
+        }
+        
+        $episodes = array_merge($episodes, $episodesData['results']);
+
+        return $episodes;
+    }
+
+    /* public function getLocations()
     {
         $locations = [];
         $url = 'https://rickandmortyapi.com/api/location';
@@ -55,6 +98,28 @@ class RickAndMortyApiService
             $locations = array_merge($locations, $locationsData['results']);
             $url = $locationsData['info']['next'];
         } while (!is_null($url));
+
+        return $locations;
+    } */
+
+    public function getLocations()
+    {
+        return $this->getLocationsRec('https://rickandmortyapi.com/api/location');
+    }
+
+    private function getLocationsRec($url, $locations = [])
+    {
+        $locationsResponse = $this->httpClient->request('GET', $url);
+        $locationsData = $locationsResponse->toArray();
+
+        $nextPageUrl = $locationsData['info']['next'];
+
+        if (!is_null($nextPageUrl)) {
+            // Llamada recursiva para obtener la siguiente página
+            $locations = $this->getLocationsRec($nextPageUrl, $locations);
+        }
+
+        $locations = array_merge($locations, $locationsData['results']);
 
         return $locations;
     }
