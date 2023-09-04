@@ -25,31 +25,34 @@ class AppController extends AbstractController
         $stopwatch = new Stopwatch();
         $stopwatch->start('char_count');
 
-        $locationData = $this->rickAndMortyApiService->getLocations();
-        $episodeData = $this->rickAndMortyApiService->getEpisodes();
-        $charactersData = $this->rickAndMortyApiService->getCharacters();
-
-        $results = [
-            [
-                "char" => "l",
-                "count" => $charCounter->getCount($locationData,"name",'l'),
-                "resource" => "location",
-            ],
-            [
-                "char" => "e",
-                "count" => $charCounter->getCount($episodeData,"name",'e'),
-                "resource" => "episode",
-            ],
-            [
-                "char" => "c",
-                "count" => $charCounter->getCount($charactersData,"name",'c'),
-                "resource" => "character",
-            ],
-        ];        
+        /* $locations = $this->rickAndMortyApiService->getLocations();
+        $episodes = $this->rickAndMortyApiService->getEpisodes();
+        $characters = $this->rickAndMortyApiService->getCharacters(); */
+        $data = $this->rickAndMortyApiService->getAllData();
 
         $event = $stopwatch->stop('char_count');
         $executionTime = $event->getDuration();
         $formattedTime = TimeFormatter::millisecondsToTimeString($executionTime);
+        dump($formattedTime);
+        die();
+
+        $results = [
+            /* [
+                "char" => "l",
+                "count" => $charCounter->getCount($locations,"name",'l'),
+                "resource" => "location",
+            ],
+            [
+                "char" => "e",
+                "count" => $charCounter->getCount($episodes,"name",'e'),
+                "resource" => "episode",
+            ],
+            [
+                "char" => "c",
+                "count" => $charCounter->getCount($characters,"name",'c'),
+                "resource" => "character",
+            ], */
+        ];        
 
         return new JsonResponse([
             "exercise_name" => "Char counter",
