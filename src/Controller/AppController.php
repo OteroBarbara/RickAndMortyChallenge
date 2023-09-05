@@ -49,7 +49,7 @@ class AppController extends AbstractController
         ];        
 
 
-        $exercise2 = $episodeLocation->getLocations($episodesData,$charactersData);
+        $exercise2 = $episodeLocation->getEpisodesLocations($episodesData,$charactersData);
         
         $event = $stopwatch->stop('char_count');
         $executionTime = $event->getDuration();
