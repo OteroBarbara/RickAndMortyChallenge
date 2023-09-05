@@ -26,4 +26,24 @@ class CharCounterService
         return $count;
     }
 
+    public function getExerciseOne(array $locationsList, array $episodesList, array $charactersList) : array {
+        return [
+            [
+                "char" => "l",
+                "count" => $this->getCount($locationsList,"name",'l'),
+                "resource" => "location",
+            ],
+            [
+                "char" => "e",
+                "count" => $this->getCount($episodesList,"name",'e'),
+                "resource" => "episode",
+            ],
+            [
+                "char" => "c",
+                "count" => $this->getCount($charactersList,"name",'c'),
+                "resource" => "character",
+            ],
+        ];
+    }
+
 }

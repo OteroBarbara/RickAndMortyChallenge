@@ -20,51 +20,40 @@ class AppController extends AbstractController
         $this->rickAndMortyApiService = $rickAndMortyApiService;
     }
 
-    #[Route('/', name: 'home')]
+    #[Route('/', name: 'results')]
     public function index(CharCounterService $charCounter, EpisodeLocationService $episodeLocation): JsonResponse
     {
         $stopwatch = new Stopwatch();
-        $stopwatch->start('char_count');
+        $stopwatch->start('cronometro');
 
         $locationsData = $this->rickAndMortyApiService->getLocations();
         $episodesData = $this->rickAndMortyApiService->getEpisodes();
         $charactersData = $this->rickAndMortyApiService->getCharacters();
 
-        $results = [
-            [
-                "char" => "l",
-                "count" => $charCounter->getCount($locationsData,"name",'l'),
-                "resource" => "location",
-            ],
-            [
-                "char" => "e",
-                "count" => $charCounter->getCount($episodesData,"name",'e'),
-                "resource" => "episode",
-            ],
-            [
-                "char" => "c",
-                "count" => $charCounter->getCount($charactersData,"name",'c'),
-                "resource" => "character",
-            ],
-        ];        
+        $resultsExercise1 = $charCounter->getExerciseOne($locationsData,$episodesData,$charactersData);
 
-
-        $exercise2 = $episodeLocation->getEpisodesLocations($episodesData,$charactersData);
-        
-        $event = $stopwatch->stop('char_count');
+        $event = $stopwatch->lap('cronometro');
         $executionTime = $event->getDuration();
-        $formattedTime = TimeFormatter::millisecondsToTimeString($executionTime);
 
+        $exercise1 = [
+            "exercise_name" => "Char counter",
+            "time" => TimeFormatter::millisecondsToTimeString($executionTime),
+            "in_time" => $executionTime < 3000,
+            "results" => $resultsExercise1,
+        ];
+
+        $resultsExercise2 =  $episodeLocation->getEpisodesLocations($episodesData,$charactersData);
         
-        return new JsonResponse([
-            /* "exercise_name" => "Char counter",
-            "time" => $formattedTime,
-            "in_time" => $executionTime < 3000,
-            "results" => $results, */
+        $event = $stopwatch->stop('cronometro');
+        $executionTime = $event->getDuration();
+             
+        $exercise2 = [
             "exercise_name" => "Episode locations",
-            "time" => $formattedTime,
+            "time" => TimeFormatter::millisecondsToTimeString($executionTime),
             "in_time" => $executionTime < 3000,
-            "results" => $exercise2,
-        ]);
+            "results" => $resultsExercise2,
+        ];
+        
+        return new JsonResponse([$exercise1,$exercise2]);
     }
 }
