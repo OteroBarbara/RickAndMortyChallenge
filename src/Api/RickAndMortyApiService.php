@@ -10,20 +10,22 @@ class RickAndMortyApiService
 
     public function __construct(HttpClientInterface $httpClient)
     {
-        $this->httpClient = $httpClient;
+        $this->httpClient = $httpClient->withOptions([
+            'base_uri' => 'https://rickandmortyapi.com/api/'
+        ]);
     }
 
     public function getCharacters()
     {
         $characters = [];
-        $url = 'https://rickandmortyapi.com/api/character';
+        $uri = 'character';
 
         do {
-            $charactersResponse = $this->httpClient->request('GET', $url);
+            $charactersResponse = $this->httpClient->request('GET', $uri);
             $charactersData = $charactersResponse->toArray();
             $characters = array_merge($characters, $charactersData['results']);
-            $url = $charactersData['info']['next'];
-        } while (!is_null($url));
+            $uri = $charactersData['info']['next'];
+        } while (!is_null($uri));
 
         return $characters;
     }
@@ -31,14 +33,14 @@ class RickAndMortyApiService
     public function getEpisodes()
     {
         $episodes = [];
-        $url = 'https://rickandmortyapi.com/api/episode';
+        $uri = 'episode';
 
         do {
-            $episodesResponse = $this->httpClient->request('GET', $url);
+            $episodesResponse = $this->httpClient->request('GET', $uri);
             $episodesData = $episodesResponse->toArray();
             $episodes = array_merge($episodes, $episodesData['results']);
-            $url = $episodesData['info']['next'];
-        } while (!is_null($url));
+            $uri = $episodesData['info']['next'];
+        } while (!is_null($uri));
 
         return $episodes;
     }
@@ -46,16 +48,17 @@ class RickAndMortyApiService
     public function getLocations()
     {
         $locations = [];
-        $url = 'https://rickandmortyapi.com/api/location';
+        $uri = 'location';
 
         do {
-            $locationsResponse = $this->httpClient->request('GET', $url);
+            $locationsResponse = $this->httpClient->request('GET', $uri);
             $locationsData = $locationsResponse->toArray();
             $locations = array_merge($locations, $locationsData['results']);
-            $url = $locationsData['info']['next'];
-        } while (!is_null($url));
+            $uri = $locationsData['info']['next'];
+        } while (!is_null($uri));
 
         return $locations;
     }
+    
 
 }
