@@ -52,6 +52,7 @@ Tienes que consultar todos los `character`, `locations` y `episodes` de https://
       "exercise_name": "Episode locations",
       "time": "1s 721.975698ms",
       "in_time": true,
+      "cant_locations": 3,
       "results": [
           {
               "name": "Pickle Rick",
@@ -66,8 +67,48 @@ Tienes que consultar todos los `character`, `locations` y `episodes` de https://
   }
 ]
 ```
-## Testing
+## Solución
 
-Para testear los servicios de la aplicación, abrir la terminal en el directorio raiz del proyecto y ejecutar el siguiente comando:
+El proyecto consta de las siguientes clases y servicios:
 
-`php bin/phpunit`
+### `CharCounterService`
+
+El servicio `CharCounterService` proporciona métodos para contar las ocurrencias de un carácter. Es el servicio que nos provee de una solución para el primer ejercicio planteado en el challenge.
+
+#### Métodos
+
+- `getCount(array $elementsList, string $attribute, string $char): int`: Cuenta las ocurrencias de un carácter dado un atributo, un caracter y una lista de elementos.
+
+- `getExerciseOne(array $locationsList, array $episodesList, array $charactersList): array`: Realiza el primer ejercicio del challenge que consiste contar la cantidad de "l" en los nombres de los "location", las "c" en los nombres de los "character" y las "e" en los nombres de los "episode".
+
+### `EpisodeLocationService`
+
+El servicio `EpisodeLocationService` ofrece métodos para obtener información sobre las locaciones de origen de personajes en episodios. Este es el servicio que provee una solución para el segundo ejercicio del challenge.
+
+#### Métodos
+
+- `getEpisodesLocations(array $episodesList, array $charactersList): array`: Dada una lista de episodios y de personajes, obtiene la siguiente información de cada episodio: nombre, episodio, cantidad y listado de locaciones de origen de sus personajes.
+
+### `TimeFormatter`
+
+La clase `TimeFormatter` proporciona un método para formatear milisegundos en segundos y milisegundos.
+
+#### Métodos
+
+- `millisecondsToTimeString(int $milliseconds): string`: Convierte milisegundos a segundos y milisegundos.
+
+## Instalación
+
+Para utilizar este proyecto, sigue estos pasos:
+
+1. Clona el repositorio en tu máquina local:
+
+   `git clone https://github.com/tu-usuario/rick-and-morty-api-challenge.git`
+
+## Testeo
+
+Para testear los servicios de la aplicación, sigue estos pasos:
+
+1. Abrir la terminal en el directorio raiz del proyecto y ejecutar el siguiente comando:
+
+    `php bin/phpunit`
