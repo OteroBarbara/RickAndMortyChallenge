@@ -30,8 +30,6 @@ class AppController extends AbstractController
         $episodesData = $this->rickAndMortyApiService->getEpisodes();
         $charactersData = $this->rickAndMortyApiService->getCharacters();
 
-        dump($charactersData);die();
-
         $resultsExercise1 = $charCounter->getExerciseOne($locationsData,$episodesData,$charactersData);
 
         $event = $stopwatch->lap('cronometro');
