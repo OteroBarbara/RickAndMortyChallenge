@@ -5,8 +5,14 @@ use App\Utils\TimeFormatter;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Clase que contiene pruebas para TimeFormatter.
+ */
 class TimeFormatterTest extends TestCase
 {
+    /**
+     * Testea el método millisecondsToTimeString de TimeFormatter.
+     */
     public function testMillisecondsToTimeString(): void
     {
         // Prueba con un valor de 0 milisegundos

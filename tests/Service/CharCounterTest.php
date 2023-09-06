@@ -5,13 +5,34 @@ namespace App\Tests\Service;
 use App\Service\CharCounterService;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Clase que contiene pruebas para el servicio CharCounterService.
+ */
 class CharCounterTest extends TestCase
 {
+    /**
+     * @var array Arreglo de datos de ubicaciones para pruebas.
+     */
     private $locations;
+
+    /**
+     * @var array Arreglo de datos de personajes para pruebas.
+     */
     private $characters;
+
+    /**
+     * @var array Arreglo de datos de episodios para pruebas.
+     */
     private $episodes;
+
+    /**
+     * @var CharCounterService Instancia del servicio CharCounterService para pruebas.
+     */
     private $charCounter;
 
+    /**
+     * Configura el entorno de prueba antes de cada caso de prueba.
+     */
     public function setUp(): void
     {
         parent::setUp();
@@ -92,7 +113,9 @@ class CharCounterTest extends TestCase
         ];
     }
 
-    // Testeamos que el contador de caracteres realiza el conteo correctamente siendo case insensitive
+    /**
+     * Testeamos que el contador de caracteres realiza el conteo correctamente siendo case insensitive
+     */ 
     public function testCharCounter(): void
     {
         $result = $this->charCounter->getCount($this->locations,'name','a');
@@ -104,7 +127,9 @@ class CharCounterTest extends TestCase
         $this->assertEquals($result,$this->charCounter->getCount($this->locations,'name','A'));
     }
 
-    // Testeamos que si la data está vacía devuelve 0
+    /**
+     *  Testeamos que si la data está vacía devuelve 0
+     */ 
     public function testCharCounterEmtyArray(): void
     {
         $array = [];
@@ -114,7 +139,9 @@ class CharCounterTest extends TestCase
         $this->assertEquals($resultado, 0);
     }
 
-    // Testeamos que se cumpla el formato esperado para el ejercicio 1
+    /**
+     * Testea que se cumple el formato esperado para el ejercicio 1.
+     */
     public function testExerciseOne(): void
     {
         $expectedArray = [

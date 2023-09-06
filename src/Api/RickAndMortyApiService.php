@@ -4,10 +4,21 @@ namespace App\Api;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * Servicio que se encarga de interactuar con la API de Rick and Morty para obtener datos relacionados con personajes, episodios y ubicaciones.
+ */
 class RickAndMortyApiService
 {
+    /**
+     * @var HttpClientInterface Cliente HTTP para realizar solicitudes a la API.
+     */
     private $httpClient;
 
+    /**
+     * Constructor de la clase.
+     *
+     * @param HttpClientInterface $httpClient Cliente HTTP para realizar solicitudes a la API.
+     */
     public function __construct(HttpClientInterface $httpClient)
     {
         $this->httpClient = $httpClient->withOptions([
@@ -15,6 +26,11 @@ class RickAndMortyApiService
         ]);
     }
 
+    /**
+     * Obtiene información sobre los personajes de Rick and Morty.
+     *
+     * @return array Arreglo de datos de personajes.
+     */
     public function getCharacters()
     {
         $characters = [];
@@ -30,6 +46,11 @@ class RickAndMortyApiService
         return $characters;
     }
 
+    /**
+     * Obtiene información sobre los episodios de Rick and Morty.
+     *
+     * @return array Arreglo de datos de episodios.
+     */
     public function getEpisodes()
     {
         $episodes = [];
@@ -45,6 +66,11 @@ class RickAndMortyApiService
         return $episodes;
     }
 
+    /**
+     * Obtiene información sobre las ubicaciones de Rick and Morty.
+     *
+     * @return array Arreglo de datos de ubicaciones.
+     */
     public function getLocations()
     {
         $locations = [];

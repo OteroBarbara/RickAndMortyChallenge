@@ -5,12 +5,30 @@ namespace App\Tests\Service;
 use App\Service\EpisodeLocationService;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Clase que contiene pruebas para el servicio EpisodeLocationService.
+ */
 class EpisodeLocationTest extends TestCase
 {
+    /**
+     * @var EpisodeLocationService Instancia del servicio EpisodeLocationService para pruebas.
+     */
     private $episodeLocationService;
+
+    /**
+     * @var array Arreglo de datos de personajes para pruebas.
+     */
+
     private $characters;
+
+    /**
+     * @var array Arreglo de datos de episodios para pruebas.
+     */
     private $episodes;
 
+    /**
+     * Configura el entorno de prueba antes de cada caso de prueba.
+     */
     public function setUp(): void
     {
         parent::setUp();
@@ -101,7 +119,10 @@ class EpisodeLocationTest extends TestCase
         ];
     }
 
-    // Testeamos que dada una lista de episodios, el metodo getEpisodesLocations devuelva el nombre, episodio, cantidad y listado de locaciones de origen de sus personajes.    
+    /**
+     * Testea que dada una lista de episodios, el método getEpisodesLocations
+     * devuelva el nombre, episodio, cantidad y listado de locaciones de origen de sus personajes.
+     */
     public function testEpisodesLocations(): void
     {
         $expectedResults = [
