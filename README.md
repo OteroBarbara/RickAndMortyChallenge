@@ -103,7 +103,7 @@ Para utilizar este proyecto, sigue estos pasos:
 
 1. Clona el repositorio en tu máquina local:
 
-   `git clone https://github.com/tu-usuario/rick-and-morty-api-challenge.git`
+   `git clone https://github.com/OteroBarbara/rick-and-morty-api-challenge.git`
 
 ## Testeo
 
