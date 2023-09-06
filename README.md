@@ -105,10 +105,32 @@ Para utilizar este proyecto, sigue estos pasos:
 
    `git clone https://github.com/OteroBarbara/rick-and-morty-api-challenge.git`
 
+2. Chequear los requisitos del sistema:
+
+    Asegurate de tener instalado PHP y Composer, puedes hacer el chequeo con los siguientes comandos:
+
+    `php -v`
+    `composer -v`
+
+    Si no los tienes instalados, deberás instalarlos antes de seguir con el resto de los pasos:
+      - Guía de instalación de PHP: https://www.ionos.es/digitalguide/paginas-web/desarrollo-web/instalar-php/
+      - Guía de instalación de Composer: https://www.hostinger.com.ar/tutoriales/como-instalar-composer
+
+3. Instalar las dependencias:
+
+    Abre la terminal, ubicate en el directorio raiz del proyecto e ingresa el siguiente comando: `composer install`
+
+4. Iniciar el Servidor Web:
+
+    Ingresa el siguiente comando en la terminal (en el directorio raiz del proyecto): `symfony server:start`
+
+5. Abrir la aplicación:
+
+    Abre un navegador web e ingresa la siguiente url en el buscador: `http://localhost:8000/`    
+
+
 ## Testeo
 
-Para testear los servicios de la aplicación, sigue estos pasos:
+Para testear los servicios de la aplicación, deberás abrir la terminal en el directorio raiz del proyecto y ejecutar el siguiente comando:
 
-1. Abrir la terminal en el directorio raiz del proyecto y ejecutar el siguiente comando:
-
-    `php bin/phpunit`
+`php bin/phpunit`
