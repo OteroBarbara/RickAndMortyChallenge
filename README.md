@@ -66,3 +66,8 @@ Tienes que consultar todos los `character`, `locations` y `episodes` de https://
   }
 ]
 ```
+## Testing
+
+Para testear los servicios de la aplicación, abrir la terminal en el directorio raiz del proyecto y ejecutar el siguiente comando:
+
+`php bin/phpunit`

@@ -9,6 +9,9 @@ class CharCounterService
         // Inicializar contador
         $count = 0;
 
+        // Nos aseguramos del caracter esté en minúscula
+        $char = mb_strtolower($char);
+
         // Recorrer la lista
         foreach ($jsonList as $jsonObject) {
 
@@ -17,6 +20,9 @@ class CharCounterService
 
                 // Obtener el valor
                 $attributeValue = $jsonObject[$attribute];
+
+                // Lo pasamos a minúscula
+                $attributeValue = mb_strtolower($attributeValue);
 
                 // Contar las ocurrencias del char en el valor del atributo
                 $count += mb_substr_count($attributeValue, $char);
