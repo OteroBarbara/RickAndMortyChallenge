@@ -5,7 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Api\RickAndMortyApiService;
+use App\Api\RickAndMortyService;
 use App\Service\EpisodeLocationService;
 use App\Service\CharCounterService;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -17,18 +17,18 @@ use App\Utils\TimeFormatter;
 class AppController extends AbstractController
 {
     /**
-     * @var RickAndMortyApiService Servicio para interactuar con la API de Rick and Morty.
+     * @var RickAndMortyService Servicio para interactuar con la API de Rick and Morty.
      */
-    private $rickAndMortyApiService;
+    private $rickAndMortyService;
 
     /**
      * Constructor de la clase.
      *
-     * @param RickAndMortyApiService $rickAndMortyApiService Servicio para interactuar con la API de Rick and Morty.
+     * @param RickAndMortyService $rickAndMortyApiService Servicio para interactuar con la API de Rick and Morty.
      */
-    public function __construct(RickAndMortyApiService $rickAndMortyApiService)
+    public function __construct(RickAndMortyService $rickAndMortyService)
     {
-        $this->rickAndMortyApiService = $rickAndMortyApiService;
+        $this->rickAndMortyService = $rickAndMortyService;
     }
 
     /**
@@ -48,9 +48,10 @@ class AppController extends AbstractController
         $stopwatch->start('cronometro');
 
         // Obtiene datos de ubicaciones, episodios y personajes desde el servicio RickAndMortyApi.
-        $locationsData = $this->rickAndMortyApiService->getLocations();
-        $episodesData = $this->rickAndMortyApiService->getEpisodes();
-        $charactersData = $this->rickAndMortyApiService->getCharacters();
+        $data = $this->rickAndMortyService->getDataWithCache('data_cache.json',3600);
+        $locationsData = $data['locations'];
+        $episodesData = $data['episodes'];
+        $charactersData = $data['characters'];
 
         // Ejercicio 1: Conteo de caracteres en nombres de ubicaciones, episodios y personajes.
         $resultsExercise1 = $charCounter->getExerciseOne($locationsData,$episodesData,$charactersData);
