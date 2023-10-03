@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
+use App\Api\RickAndMortyAsyncService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Api\RickAndMortyService;
 use App\Service\EpisodeLocationService;
 use App\Service\CharCounterService;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -17,18 +17,18 @@ use App\Utils\TimeFormatter;
 class AppController extends AbstractController
 {
     /**
-     * @var RickAndMortyService Servicio para interactuar con la API de Rick and Morty.
+     * @var RickAndMortyAsyncService Servicio para interactuar con la Api de Rick and Morty.
      */
-    private $rickAndMortyService;
+    private $rickAndMortyAsyncService;
 
     /**
      * Constructor de la clase.
      *
-     * @param RickAndMortyService $rickAndMortyApiService Servicio para interactuar con la API de Rick and Morty.
+     * @param RickAndMortyAsyncService $rickAndMortyAsyncService Servicio para interactuar con la Api de Rick and Morty.
      */
-    public function __construct(RickAndMortyService $rickAndMortyService)
+    public function __construct(RickAndMortyAsyncService $rickAndMortyAsyncService)
     {
-        $this->rickAndMortyService = $rickAndMortyService;
+        $this->rickAndMortyAsyncService = $rickAndMortyAsyncService;
     }
 
     /**
@@ -47,8 +47,8 @@ class AppController extends AbstractController
         $stopwatch = new Stopwatch();
         $stopwatch->start('cronometro');
 
-        // Obtiene datos de ubicaciones, episodios y personajes desde el servicio RickAndMortyApi.
-        $data = $this->rickAndMortyService->getDataWithCache('data_cache.json',3600);
+        // Obtiene datos de ubicaciones, episodios y personajes desde el servicio RickAndMortyAsync.
+        $data = $this->rickAndMortyAsyncService->getAllData();
         $locationsData = $data['locations'];
         $episodesData = $data['episodes'];
         $charactersData = $data['characters'];
