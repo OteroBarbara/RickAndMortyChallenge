@@ -25,10 +25,8 @@ class CharCounterService
 
         // Recorrer la lista
         foreach ($elementsList as $element) {
-
             // Verificar si el atributo existe
             if (isset($element[$attribute])) {
-
                 // Obtener el valor
                 $attributeValue = $element[$attribute];
 
@@ -52,26 +50,27 @@ class CharCounterService
      * @param array $locationsList Lista de todos los "location".
      * @param array $episodesList Lista de todos los "episode".
      * @param array $charactersList Lista de todos los "character".
-     * @return array Arreglo con la información de las ocurrencias (en el atributo nombre) de los caracteres "l" en los "location", "e" en los "episode" y "c" en los "character".
+     * @return array Arreglo con la información de las ocurrencias (en el atributo nombre)
+     * de los caracteres "l" en los "location", "e" en los "episode" y "c" en los "character".
      */
-    public function getExerciseOne(array $locationsList, array $episodesList, array $charactersList) : array {
+    public function getExerciseOne(array $locationsList, array $episodesList, array $charactersList) : array
+    {
         return [
             [
                 "char" => "l",
-                "count" => $this->getCount($locationsList,"name",'l'),
+                "count" => $this->getCount($locationsList, "name", 'l'),
                 "resource" => "location",
             ],
             [
                 "char" => "e",
-                "count" => $this->getCount($episodesList,"name",'e'),
+                "count" => $this->getCount($episodesList, "name", 'e'),
                 "resource" => "episode",
             ],
             [
                 "char" => "c",
-                "count" => $this->getCount($charactersList,"name",'c'),
+                "count" => $this->getCount($charactersList, "name", 'c'),
                 "resource" => "character",
             ],
         ];
     }
-
 }

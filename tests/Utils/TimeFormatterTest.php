@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Tests\Utils;
+
 use App\Utils\TimeFormatter;
 
 use PHPUnit\Framework\TestCase;

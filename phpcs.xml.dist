@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<ruleset name="MySymfonyProject">
+    <description>My Symfony Project Coding Standard</description>
+    <file>src</file>
+    <file>tests</file>
+    <arg name="extensions" value="php"/>
+    <rule ref="PSR2"/>
+</ruleset>

@@ -12,7 +12,7 @@ class CacheService
      *
      * @param string   $cacheFile               La ruta al archivo de caché.
      * @param int      $cacheDurationInSeconds La duración en segundos durante la cual la caché se considera válida.
-     * @param callable $dataCallback           Una función CallBack que obtiene los datos si no se encuentran en la caché.
+     * @param callable $dataCallback           Una función CallBack que obtiene los datos si no están en caché.
      *
      * @return array Los datos en caché o los datos obtenidos mediante la función de devolución de llamada.
      *

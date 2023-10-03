@@ -115,25 +115,25 @@ class CharCounterTest extends TestCase
 
     /**
      * Testeamos que el contador de caracteres realiza el conteo correctamente siendo case insensitive
-     */ 
+     */
     public function testCharCounter(): void
     {
-        $result = $this->charCounter->getCount($this->locations,'name','a');
+        $result = $this->charCounter->getCount($this->locations, 'name', 'a');
 
         // Verificamos que los resultados son los esperados
         $this->assertEquals($result, 4);
 
         // Verificamos que da el mismo resultado si el caracter era ingresado en mayúscula
-        $this->assertEquals($result,$this->charCounter->getCount($this->locations,'name','A'));
+        $this->assertEquals($result, $this->charCounter->getCount($this->locations, 'name', 'A'));
     }
 
     /**
      *  Testeamos que si la data está vacía devuelve 0
-     */ 
+     */
     public function testCharCounterEmtyArray(): void
     {
         $array = [];
-        $resultado = $this->charCounter->getCount($array,'name','a');
+        $resultado = $this->charCounter->getCount($array, 'name', 'a');
 
         // Verificamos que devuelve 0
         $this->assertEquals($resultado, 0);
@@ -162,10 +162,9 @@ class CharCounterTest extends TestCase
             ],
         ];
 
-        $result = $this->charCounter->getExerciseOne($this->locations,$this->episodes,$this->characters);
+        $result = $this->charCounter->getExerciseOne($this->locations, $this->episodes, $this->characters);
 
         // Verificamos que los resultados son los esperados
         $this->assertEquals($expectedArray, $result);
     }
-
 }

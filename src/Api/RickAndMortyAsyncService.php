@@ -95,7 +95,6 @@ class RickAndMortyAsyncService
                         $characters = array_merge($characters, $charactersData['results']);
                     }
                 }
-
             } catch (\Throwable $th) {
                 throw $th;
             }
@@ -134,7 +133,6 @@ class RickAndMortyAsyncService
                         $episodes = array_merge($episodes, $episodesData['results']);
                     }
                 }
-
             } catch (\Throwable $th) {
                 throw $th;
             }
@@ -173,7 +171,6 @@ class RickAndMortyAsyncService
                         $locations = array_merge($locations, $locationsData['results']);
                     }
                 }
-
             } catch (\Throwable $th) {
                 throw $th;
             }
@@ -181,5 +178,4 @@ class RickAndMortyAsyncService
             return $locations;
         });
     }
-
 }

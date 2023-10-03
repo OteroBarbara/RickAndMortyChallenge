@@ -12,7 +12,8 @@ use Symfony\Component\Stopwatch\Stopwatch;
 use App\Utils\TimeFormatter;
 
 /**
- * Controlador principal de la aplicación que gestiona las rutas y proporciona los resultados de los ejercicios del challenge.
+ * Controlador principal de la aplicación que gestiona las rutas y
+ * proporciona los resultados de los ejercicios del challenge.
  */
 class AppController extends AbstractController
 {
@@ -33,7 +34,6 @@ class AppController extends AbstractController
 
     /**
      * @Route('/', name: 'results')
-     * 
      * Controlador que maneja la ruta principal y proporciona resultados para dos ejercicios.
      *
      * @param CharCounterService $charCounter Servicio de contador de caracteres.
@@ -54,7 +54,7 @@ class AppController extends AbstractController
         $charactersData = $data['characters'];
 
         // Ejercicio 1: Conteo de caracteres en nombres de ubicaciones, episodios y personajes.
-        $resultsExercise1 = $charCounter->getExerciseOne($locationsData,$episodesData,$charactersData);
+        $resultsExercise1 = $charCounter->getExerciseOne($locationsData, $episodesData, $charactersData);
 
         // Registra el tiempo de ejecución al finalizar el primer ejercicio.
         $event = $stopwatch->lap('cronometro');
@@ -69,7 +69,7 @@ class AppController extends AbstractController
         ];
 
         // Ejercicio 2: Obtención de locaciones de origen de personajes en episodios.
-        $resultsExercise2 =  $episodeLocation->getEpisodesLocations($episodesData,$charactersData);
+        $resultsExercise2 =  $episodeLocation->getEpisodesLocations($episodesData, $charactersData);
         
         // Detiene el cronómetro y registra el tiempo de ejecución al terminar el segundo ejercicio.
         $event = $stopwatch->stop('cronometro');

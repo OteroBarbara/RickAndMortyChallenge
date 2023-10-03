@@ -3,7 +3,8 @@
 namespace App\Service;
 
 /**
- * El servicio EpisodeLocationService proporciona métodos para obtener información sobre las locaciones de origen de los personajes en una lista de episodios.
+ * El servicio EpisodeLocationService proporciona métodos para obtener información sobre
+ * las locaciones de origen de los personajes en una lista de episodios.
  */
 class EpisodeLocationService
 {
@@ -12,17 +13,16 @@ class EpisodeLocationService
      *
      * @param array $episodesList Lista de episodios.
      * @param array $charactersList Lista de personajes.
-     * @return array Arreglo con información de cada episodio: nombre, episodio, cantidad y listado de locaciones de origen de sus personajes.
+     * @return array Arreglo con info de cada episodio: nombre, episodio y origen de sus personajes (lista y cantidad).
      */
     public function getEpisodesLocations(array $episodesList, array $charactersList): array
     {
         $results = [];
-        // Recorrer la lista    
+        // Recorrer la lista
         foreach ($episodesList as $episode) {
-
             // Obtener los personajes del episodio
             $charactersUrls = $episode["characters"];
-            $characterLocations = $this->getCharactersLocations($charactersUrls,$charactersList);
+            $characterLocations = $this->getCharactersLocations($charactersUrls, $charactersList);
 
             // Formato de la respuesta
             array_push($results, [
@@ -45,14 +45,13 @@ class EpisodeLocationService
      */
     private function getCharactersLocations(array $charactersUrlsList, array $charactersList): array
     {
-
         $characterLocations = [];
 
         foreach ($charactersUrlsList as $url) {
             // Disponemos de la lista de personajes, así que nos quedamos con la parte de la url que representa el ID
             $characterId = basename(strrchr($url, "/"));
             // Con el ID consultamos la locación de origen del personaje en el arreglo que disponemos
-            array_push($characterLocations,$charactersList[$characterId-1]["origin"]["name"]);
+            array_push($characterLocations, $charactersList[$characterId-1]["origin"]["name"]);
         }
 
         // Eliminamos los duplicados y lo convertimos en un arreglo indexado (sin claves)
@@ -60,5 +59,4 @@ class EpisodeLocationService
 
         return $characterLocations;
     }
-
 }

@@ -6,7 +6,8 @@ use App\Service\CacheService;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
- * Servicio que se encarga de interactuar con la API de Rick and Morty para obtener datos relacionados con personajes, episodios y ubicaciones.
+ * Servicio que se encarga de interactuar con la API de Rick and Morty
+ * para obtener datos relacionados con personajes, episodios y ubicaciones.
  */
 class RickAndMortyApiService
 {
@@ -21,9 +22,9 @@ class RickAndMortyApiService
      *
      * @param HttpClientInterface $httpClient Cliente HTTP para realizar solicitudes a la API.
      * @param CacheService $cacheService Una instancia de CacheService para la gestión de caché de datos.
-     * 
+     *
      */
-    public function __construct(HttpClientInterface $httpClient,CacheService $cacheService)
+    public function __construct(HttpClientInterface $httpClient, CacheService $cacheService)
     {
         $this->httpClient = $httpClient->withOptions([
             'base_uri' => 'https://rickandmortyapi.com/api/'
@@ -102,12 +103,12 @@ class RickAndMortyApiService
      *
      * @return array Un arreglo con datos de personajes, episodios y ubicaciones.
      */
-    public function getAllData(){
+    public function getAllData()
+    {
         return ([
             'characters' => $this->getCharacters(),
             'episodes' => $this->getEpisodes(),
             'locations' => $this->getLocations()
         ]);
     }
-
 }
