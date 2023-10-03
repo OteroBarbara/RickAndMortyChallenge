@@ -44,6 +44,7 @@ class RickAndMortyAsyncService
             'locations' => $this->getLocations(),
         ];
 
+        // Espera que se cumplan las promesas
         $responses = Promise\Utils::settle($promises)->wait();
         
         $results = [
@@ -52,6 +53,7 @@ class RickAndMortyAsyncService
             'locations' => [],
         ];
     
+        // Arma el arreglo de resultados
         foreach ($responses as $key => $response) {
             if ($response['state'] === 'fulfilled') {
                 $response = $response['value'];
@@ -76,14 +78,16 @@ class RickAndMortyAsyncService
 
             try {
                 $promises = [];
-                for ($i = 1; $i < 43; $i++) { // Adjust the concurrency level as needed
+                for ($i = 1; $i < 43; $i++) { // Itera tantas veces como la cantidad de páginas +1
                     if (!is_null($uri)) {
                         $promises[] = $client->getAsync($uri."/?page=".$i);
                     }
                 }
 
-                // Wait for all promises to complete
+                // Espera que se cumplan las promesas
                 $responses = Promise\Utils::settle($promises)->wait();
+
+                // Arma el arreglo de resultados
                 foreach ($responses as $response) {
                     if ($response['state'] === 'fulfilled') {
                         $response = $response['value'];
@@ -115,12 +119,14 @@ class RickAndMortyAsyncService
 
             try {
                 $promises = [];
-                for ($i = 1; $i < 4; $i++) { 
+                for ($i = 1; $i < 4; $i++) { // Itera tantas veces como la cantidad de páginas +1
                     $promises[] = $client->getAsync($uri."/?page=".$i);
                 }
 
-                // Wait for all promises to complete
+                // Espera que se cumplan las promesas
                 $responses = Promise\Utils::settle($promises)->wait();
+
+                // Arma el arreglo de resultados
                 foreach ($responses as $response) {
                     if ($response['state'] === 'fulfilled') {
                         $response = $response['value'];
@@ -152,12 +158,14 @@ class RickAndMortyAsyncService
 
             try {
                 $promises = [];
-                for ($i = 1; $i < 8; $i++) { 
+                for ($i = 1; $i < 8; $i++) {  // Itera tantas veces como la cantidad de páginas +1
                     $promises[] = $client->getAsync($uri."/?page=".$i);
                 }
 
-                // Wait for all promises to complete
+                // Espera que se cumplan las promesas
                 $responses = Promise\Utils::settle($promises)->wait();
+
+                // Arma el arreglo de resultados
                 foreach ($responses as $response) {
                     if ($response['state'] === 'fulfilled') {
                         $response = $response['value'];
