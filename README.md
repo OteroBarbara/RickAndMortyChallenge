@@ -134,3 +134,7 @@ Para utilizar este proyecto, sigue estos pasos:
 Para testear los servicios de la aplicación, deberás abrir la terminal en el directorio raiz del proyecto y ejecutar el siguiente comando:
 
 `php bin/phpunit`
+
+Para correr el linter y corregir cuestiones de formato y legilibilidad deberás ejecutar el siguiente comando desde la terminal en el directorio raiz:
+
+`vendor/bin/phpcs`
