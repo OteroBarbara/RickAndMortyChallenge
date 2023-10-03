@@ -138,3 +138,7 @@ Para testear los servicios de la aplicación, deberás abrir la terminal en el d
 Para correr el linter y corregir cuestiones de formato y legilibilidad deberás ejecutar el siguiente comando desde la terminal en el directorio raiz:
 
 `vendor/bin/phpcs`
+
+Para hacer fix automáticos:
+
+`vendor/bin/phpcbf`

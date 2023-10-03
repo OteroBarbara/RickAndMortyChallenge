@@ -12,9 +12,9 @@ use GuzzleHttp\Promise;
 class RickAndMortyAsyncService
 {
     /**
-     * @var string La URL base de la API de Rick and Morty.
+     * @var Client Cliente HTTP (Guzzle) para realizar solicitudes a la API.
      */
-    private $apiUrl = 'https://rickandmortyapi.com/api/';
+    private $client;
 
     /**
      * @var CacheService Una instancia de CacheService para la gestión de caché de datos.
@@ -29,6 +29,10 @@ class RickAndMortyAsyncService
     public function __construct(CacheService $cacheService)
     {
         $this->cacheService = $cacheService;
+        $this->client = new Client([
+            'base_uri' => 'https://rickandmortyapi.com/',
+            'timeout'  => 3.0,
+        ]);
     }
 
     /**
@@ -46,22 +50,16 @@ class RickAndMortyAsyncService
 
         // Espera que se cumplan las promesas
         $responses = Promise\Utils::settle($promises)->wait();
-        
-        $results = [
-            'characters' => [],
-            'episodes' => [],
-            'locations' => [],
-        ];
     
         // Arma el arreglo de resultados
         foreach ($responses as $key => $response) {
             if ($response['state'] === 'fulfilled') {
                 $response = $response['value'];
-                $results[$key] = $response;
+                $responses[$key] = $response;
             }
         }
 
-        return $results;
+        return $responses;
     }
 
     /**
@@ -72,15 +70,15 @@ class RickAndMortyAsyncService
     public function getCharacters()
     {
         return $this->cacheService->get('characters_cache.json', 3600, function () {
+
             $characters = [];
-            $uri = 'character';
-            $client = new Client(['base_uri' => $this->apiUrl]);
+            $uri = '/api/character';
 
             try {
                 $promises = [];
-                for ($i = 1; $i < 43; $i++) { // Itera tantas veces como la cantidad de páginas +1
+                for ($i = 1; $i <= 42; $i++) { // Itera tantas veces como la cantidad de páginas
                     if (!is_null($uri)) {
-                        $promises[] = $client->getAsync($uri."/?page=".$i);
+                        $promises[] = $this->client->getAsync($uri."/?page=".$i);
                     }
                 }
 
@@ -111,15 +109,14 @@ class RickAndMortyAsyncService
     public function getEpisodes()
     {
         return $this->cacheService->get('episodes_cache.json', 3600, function () {
-            $client = new Client(['base_uri' => $this->apiUrl]);
 
             $episodes = [];
-            $uri = 'episode';
+            $uri = '/api/episode';
 
             try {
                 $promises = [];
-                for ($i = 1; $i < 4; $i++) { // Itera tantas veces como la cantidad de páginas +1
-                    $promises[] = $client->getAsync($uri."/?page=".$i);
+                for ($i = 1; $i <= 3; $i++) { // Itera tantas veces como la cantidad de páginas
+                    $promises[] = $this->client->getAsync($uri."/?page=".$i);
                 }
 
                 // Espera que se cumplan las promesas
@@ -149,15 +146,14 @@ class RickAndMortyAsyncService
     public function getLocations()
     {
         return $this->cacheService->get('locations_cache.json', 3600, function () {
-            $client = new Client(['base_uri' => $this->apiUrl]);
 
             $locations = [];
-            $uri = 'location';
+            $uri = '/api/location';
 
             try {
                 $promises = [];
-                for ($i = 1; $i < 8; $i++) {  // Itera tantas veces como la cantidad de páginas +1
-                    $promises[] = $client->getAsync($uri."/?page=".$i);
+                for ($i = 1; $i <= 7; $i++) {  // Itera tantas veces como la cantidad de páginas
+                    $promises[] = $this->client->getAsync($uri."/?page=".$i);
                 }
 
                 // Espera que se cumplan las promesas

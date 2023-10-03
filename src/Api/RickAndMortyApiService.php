@@ -15,6 +15,10 @@ class RickAndMortyApiService
      * @var HttpClientInterface Cliente HTTP para realizar solicitudes a la API.
      */
     private $httpClient;
+
+    /**
+     * @var CacheService Una instancia de CacheService para la gestión de caché de datos.
+     */
     private $cacheService;
 
     /**
